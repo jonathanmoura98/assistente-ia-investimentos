@@ -119,7 +119,10 @@ const App = () => {
       chatHistory.push({ role: "user", parts: [{ text: promptText }] });
 
       const payload = { contents: chatHistory };
-      const apiKey = ""; // A chave da API será fornecida pelo ambiente de tempo de execução.
+      // ATENÇÃO: Para deploy real, a chave da API DEVE ser carregada de forma segura
+      // (ex: variáveis de ambiente no Netlify/Vercel) e NÃO ser exposta diretamente no código.
+      // O valor "" é um placeholder que o ambiente Canvas preenche automaticamente.
+      const apiKey = "";
       const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
 
       const response = await fetch(apiUrl, {

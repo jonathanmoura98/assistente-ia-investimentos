@@ -99,7 +99,7 @@ const App = () => {
 
     try {
       let historicoChat = [];
-      const prompt = Você é um assistente de IA focado em educar pequenos investidores sobre conceitos financeiros e de investimento. Forneça explicações claras, concisas e fáceis de entender. Evite jargões complexos e concentre-se em fundamentos. Responda à seguinte pergunta: "${perguntaParaFazer}";
+      const prompt = 'Você é um assistente de IA focado em educar pequenos investidores sobre conceitos financeiros e de investimento. Forneça explicações claras, concisas e fáceis de entender. Evite jargões complexos e concentre-se em fundamentos. Responda à seguinte pergunta: "' + perguntaParaFazer + '";';
       historicoChat.push({ role: "user", parts: [{ text: prompt }] });
 
       const payload = { contents: historicoChat };

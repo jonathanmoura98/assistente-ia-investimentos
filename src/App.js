@@ -298,79 +298,80 @@ const App = () => {
 
   return (
     // Contêiner principal com estilos Tailwind CSS para layout e fundo.
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-400 to-blue-600 p-4 font-inter">
-      <div className="bg-white p-8 rounded-lg shadow-2xl text-center max-w-2xl w-full transform transition-all duration-500 hover:scale-105">
+    // Ajustado para um gradiente mais vibrante e suave.
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-500 via-purple-600 to-pink-500 p-4 font-inter text-gray-800">
+      <div className="bg-white p-8 rounded-xl shadow-3xl text-center max-w-3xl w-full transform transition-all duration-500 hover:scale-102 border border-gray-100">
         {/* Título do aplicativo. */}
-        <h1 className="text-4xl font-extrabold text-gray-800 mb-4 animate-fade-in">
-          Assistente de IA para Investidores
+        <h1 className="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-700 mb-4 animate-fade-in">
+          💰 Assistente Financeiro IA 📈
         </h1>
         {/* Descrição do aplicativo. */}
-        <p className="text-lg text-gray-600 mb-6">
-          Faça suas perguntas sobre investimentos, gere uma estratégia personalizada ou calcule sua independência financeira.
+        <p className="text-lg text-gray-600 mb-8">
+          Seu guia inteligente para o mundo dos investimentos.
         </p>
 
         {/* Seção de Tópicos Comuns */}
-        <div className="mb-8 p-6 border border-gray-200 rounded-lg shadow-sm">
-          <h2 className="text-2xl font-semibold text-gray-700 mb-4">Tópicos Comuns para Iniciantes 💡</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="mb-8 p-6 bg-gray-50 rounded-lg shadow-md border border-gray-200 animate-slide-in-left">
+          <h2 className="text-2xl font-semibold text-gray-700 mb-4">Tópicos Essenciais para Iniciantes 📚</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
             {commonTopics.map((topic, index) => (
               <button
                 key={index}
-                onClick={() => handleAskAI(topic)} // Passa o tópico para a função
-                className="w-full px-4 py-2 bg-gray-100 text-gray-700 rounded-lg shadow-md hover:bg-gray-200 transition-all duration-200 text-left text-sm"
+                onClick={() => handleAskAI(topic)}
+                className="w-full px-4 py-2 bg-blue-100 text-blue-800 rounded-lg shadow-sm hover:bg-blue-200 transition-all duration-200 text-left text-sm font-medium flex items-center space-x-2 transform hover:-translate-y-0.5"
               >
-                {topic}
+                <span className="text-blue-600">➡️</span> <span>{topic}</span>
               </button>
             ))}
           </div>
         </div>
 
         {/* Seção de Pergunta Geral */}
-        <div className="mb-8 p-6 border border-gray-200 rounded-lg shadow-sm">
-          <h2 className="text-2xl font-semibold text-gray-700 mb-4">Perguntas Livres ✨</h2>
+        <div className="mb-8 p-6 bg-white rounded-lg shadow-md border border-gray-200 animate-fade-in">
+          <h2 className="text-2xl font-semibold text-gray-700 mb-4">Pergunte à IA 💬</h2>
           <div className="mb-6">
             <textarea
-              className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200 resize-y min-h-[100px]"
-              placeholder="Ex: Qual a diferença entre ações e títulos?"
+              className="w-full p-4 border border-blue-300 rounded-lg focus:outline-none focus:ring-3 focus:ring-blue-400 transition-all duration-200 resize-y min-h-[120px] shadow-sm"
+              placeholder="Ex: Como funciona o Tesouro Direto?"
               value={userQuery}
               onChange={(e) => setUserQuery(e.target.value)}
               rows="4"
             ></textarea>
           </div>
-          <div className="flex justify-center gap-4 mt-4"> {/* Flex container para os botões */}
+          <div className="flex flex-col sm:flex-row justify-center gap-4 mt-4">
             <button
-              onClick={() => handleAskAI()} // Chama sem argumento para usar o userQuery do estado
+              onClick={() => handleAskAI()}
               disabled={isLoading || !userQuery.trim()}
-              className="flex-1 px-6 py-3 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 transition-all duration-300 transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex-1 px-8 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-full shadow-lg hover:from-blue-700 hover:to-blue-800 transition-all duration-300 transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75 disabled:opacity-50 disabled:cursor-not-allowed text-lg font-semibold"
             >
-              {isLoading ? 'Aguarde...' : 'Perguntar à IA'}
+              {isLoading ? 'Pensando...' : 'Perguntar à IA ✨'}
             </button>
             <button
               onClick={stopSpeaking}
-              className="flex-1 px-6 py-3 bg-red-500 text-white rounded-full shadow-lg hover:bg-red-600 transition-all duration-300 transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-50"
+              className="flex-1 px-8 py-3 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-full shadow-lg hover:from-red-600 hover:to-red-700 transition-all duration-300 transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-75"
             >
-              Parar Fala
+              Parar Fala 🔇
             </button>
           </div>
 
           {aiResponse && (
-            <div className="mt-6 p-6 bg-gray-50 border border-gray-200 rounded-lg text-left shadow-inner">
-              <h2 className="text-xl font-semibold text-gray-700 mb-3">Resposta da IA:</h2>
-              <p className="text-gray-800 whitespace-pre-wrap">{aiResponse}</p>
+            <div className="mt-6 p-6 bg-blue-50 border border-blue-200 rounded-lg text-left shadow-inner animate-fade-in-up">
+              <h2 className="text-xl font-semibold text-blue-800 mb-3">Resposta do Assistente:</h2>
+              <p className="text-gray-800 whitespace-pre-wrap leading-relaxed">{aiResponse}</p>
             </div>
           )}
         </div>
 
         {/* Seção de Gerador de Estratégia de Investimento */}
-        <div className="mb-8 p-6 border border-gray-200 rounded-lg shadow-sm">
-          <h2 className="text-2xl font-semibold text-gray-700 mb-4">Gerador de Estratégia de Investimento ✨</h2>
+        <div className="mb-8 p-6 bg-gray-50 rounded-lg shadow-md border border-gray-200 animate-slide-in-right">
+          <h2 className="text-2xl font-semibold text-gray-700 mb-4">Crie Sua Estratégia 🎯</h2>
           <div className="mb-4 text-left">
             <label htmlFor="riskTolerance" className="block text-gray-700 text-sm font-bold mb-2">
               Sua Tolerância ao Risco:
             </label>
             <select
               id="riskTolerance"
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
+              className="w-full p-3 border border-purple-300 rounded-lg focus:outline-none focus:ring-3 focus:ring-purple-400 transition-all duration-200 shadow-sm"
               value={riskTolerance}
               onChange={(e) => setRiskTolerance(e.target.value)}
             >
@@ -385,7 +386,7 @@ const App = () => {
             </label>
             <select
               id="investmentGoal"
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
+              className="w-full p-3 border border-purple-300 rounded-lg focus:outline-none focus:ring-3 focus:ring-purple-400 transition-all duration-200 shadow-sm"
               value={investmentGoal}
               onChange={(e) => setInvestmentGoal(e.target.value)}
             >
@@ -399,22 +400,22 @@ const App = () => {
           <button
             onClick={handleGenerateStrategy}
             disabled={isStrategyLoading}
-            className="w-full px-6 py-3 bg-purple-600 text-white rounded-full shadow-lg hover:bg-purple-700 transition-all duration-300 transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full px-8 py-3 bg-gradient-to-r from-purple-600 to-purple-700 text-white rounded-full shadow-lg hover:from-purple-700 hover:to-purple-800 transition-all duration-300 transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-75 disabled:opacity-50 disabled:cursor-not-allowed text-lg font-semibold"
           >
             {isStrategyLoading ? 'Gerando Estratégia...' : 'Gerar Estratégia de Investimento ✨'}
           </button>
 
           {investmentStrategy && (
-            <div className="mt-6 p-6 bg-gray-50 border border-gray-200 rounded-lg text-left shadow-inner">
-              <h2 className="text-xl font-semibold text-gray-700 mb-3">Estratégia Sugerida pela IA:</h2>
-              <p className="text-gray-800 whitespace-pre-wrap">{investmentStrategy}</p>
+            <div className="mt-6 p-6 bg-purple-50 border border-purple-200 rounded-lg text-left shadow-inner animate-fade-in-up">
+              <h2 className="text-xl font-semibold text-purple-800 mb-3">Estratégia Sugerida:</h2>
+              <p className="text-gray-800 whitespace-pre-wrap leading-relaxed">{investmentStrategy}</p>
             </div>
           )}
         </div>
 
         {/* Seção: Calculadora de Independência Financeira */}
-        <div className="mb-8 p-6 border border-gray-200 rounded-lg shadow-sm">
-          <h2 className="text-2xl font-semibold text-gray-700 mb-4">Calculadora de Independência Financeira 💰</h2>
+        <div className="mb-8 p-6 bg-white rounded-lg shadow-md border border-gray-200 animate-fade-in">
+          <h2 className="text-2xl font-semibold text-gray-700 mb-4">Calculadora de Independência Financeira 🚀</h2>
           <p className="text-md text-gray-600 mb-4">
             Estime em quantos anos você pode atingir a independência financeira.
             <br/> <span className="text-sm text-red-500 font-semibold">Atenção: As taxas de retorno são estimativas e podem variar.</span>
@@ -426,7 +427,7 @@ const App = () => {
             <input
               type="number"
               id="targetAnnualExpenses"
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
+              className="w-full p-3 border border-teal-300 rounded-lg focus:outline-none focus:ring-3 focus:ring-teal-400 transition-all duration-200 shadow-sm"
               value={targetAnnualExpenses}
               onChange={(e) => setTargetAnnualExpenses(parseFloat(e.target.value) || 0)}
               min="0"
@@ -440,7 +441,7 @@ const App = () => {
             <input
               type="number"
               id="initialSavings"
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
+              className="w-full p-3 border border-teal-300 rounded-lg focus:outline-none focus:ring-3 focus:ring-teal-400 transition-all duration-200 shadow-sm"
               value={initialSavings}
               onChange={(e) => setInitialSavings(parseFloat(e.target.value) || 0)}
               min="0"
@@ -453,7 +454,7 @@ const App = () => {
             </label>
             <select
               id="investmentType"
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
+              className="w-full p-3 border border-teal-300 rounded-lg focus:outline-none focus:ring-3 focus:ring-teal-400 transition-all duration-200 shadow-sm"
               value={investmentType}
               onChange={(e) => setInvestmentType(e.target.value)}
             >
@@ -480,7 +481,7 @@ const App = () => {
               <input
                 type="number"
                 id="customAnnualReturn"
-                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
+                className="w-full p-3 border border-teal-300 rounded-lg focus:outline-none focus:ring-3 focus:ring-teal-400 transition-all duration-200 shadow-sm"
                 value={(customAnnualReturn * 100).toFixed(2)}
                 onChange={(e) => setCustomAnnualReturn(parseFloat(e.target.value) / 100 || 0)}
                 min="0"
@@ -496,7 +497,7 @@ const App = () => {
             <input
               type="number"
               id="inflationRate"
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
+              className="w-full p-3 border border-teal-300 rounded-lg focus:outline-none focus:ring-3 focus:ring-teal-400 transition-all duration-200 shadow-sm"
               value={(inflationRate * 100).toFixed(2)}
               onChange={(e) => setInflationRate(parseFloat(e.target.value) / 100 || 0)}
               min="0"
@@ -511,7 +512,7 @@ const App = () => {
             <input
               type="number"
               id="monthlyInvestmentAmount"
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
+              className="w-full p-3 border border-teal-300 rounded-lg focus:outline-none focus:ring-3 focus:ring-teal-400 transition-all duration-200 shadow-sm"
               value={monthlyInvestmentAmount}
               onChange={(e) => setMonthlyInvestmentAmount(parseFloat(e.target.value) || 0)}
               min="0"
@@ -520,22 +521,22 @@ const App = () => {
           <button
             onClick={calculateFinancialIndependence}
             disabled={isFICalcLoading || monthlyInvestmentAmount < 0 || targetAnnualExpenses <= 0 || initialSavings < 0 || (investmentType === 'Personalizado' && customAnnualReturn <= 0) || inflationRate < 0}
-            className="w-full px-6 py-3 bg-teal-600 text-white rounded-full shadow-lg hover:bg-teal-700 transition-all duration-300 transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-opacity-50 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full px-8 py-3 bg-gradient-to-r from-teal-600 to-teal-700 text-white rounded-full shadow-lg hover:from-teal-700 hover:to-teal-800 transition-all duration-300 transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-opacity-75 disabled:opacity-50 disabled:cursor-not-allowed text-lg font-semibold"
           >
             {isFICalcLoading ? 'Calculando...' : 'Calcular Independência Financeira 🚀'}
           </button>
 
           {fiYearsResult && (
-            <div className="mt-6 p-6 bg-gray-50 border border-gray-200 rounded-lg text-left shadow-inner">
-              <h2 className="text-xl font-semibold text-gray-700 mb-3">Resultado:</h2>
-              <p className="text-gray-800 whitespace-pre-wrap">{fiYearsResult}</p>
+            <div className="mt-6 p-6 bg-teal-50 border border-teal-200 rounded-lg text-left shadow-inner animate-fade-in-up">
+              <h2 className="text-xl font-semibold text-teal-800 mb-3">Resultado:</h2>
+              <p className="text-gray-800 whitespace-pre-wrap leading-relaxed">{fiYearsResult}</p>
             </div>
           )}
         </div>
 
         {/* Nova Seção: Simulador de Investimentos Interativo */}
-        <div className="mb-8 p-6 border border-gray-200 rounded-lg shadow-sm">
-          <h2 className="text-2xl font-semibold text-gray-700 mb-4">Simulador de Investimentos Interativo 📈</h2>
+        <div className="mb-8 p-6 bg-gray-50 rounded-lg shadow-md border border-gray-200 animate-slide-in-left">
+          <h2 className="text-2xl font-semibold text-gray-700 mb-4">Simulador de Investimentos Interativo 📊</h2>
           <p className="text-md text-gray-600 mb-4">
             Veja como seu dinheiro pode crescer ao longo do tempo com juros compostos.
           </p>
@@ -546,7 +547,7 @@ const App = () => {
             <input
               type="number"
               id="simInitialInvestment"
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
+              className="w-full p-3 border border-indigo-300 rounded-lg focus:outline-none focus:ring-3 focus:ring-indigo-400 transition-all duration-200 shadow-sm"
               value={simInitialInvestment}
               onChange={(e) => setSimInitialInvestment(parseFloat(e.target.value) || 0)}
               min="0"
@@ -559,7 +560,7 @@ const App = () => {
             <input
               type="number"
               id="simMonthlyContribution"
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
+              className="w-full p-3 border border-indigo-300 rounded-lg focus:outline-none focus:ring-3 focus:ring-indigo-400 transition-all duration-200 shadow-sm"
               value={simMonthlyContribution}
               onChange={(e) => setSimMonthlyContribution(parseFloat(e.target.value) || 0)}
               min="0"
@@ -572,7 +573,7 @@ const App = () => {
             <input
               type="number"
               id="simAnnualReturnRate"
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
+              className="w-full p-3 border border-indigo-300 rounded-lg focus:outline-none focus:ring-3 focus:ring-indigo-400 transition-all duration-200 shadow-sm"
               value={(simAnnualReturnRate * 100).toFixed(2)}
               onChange={(e) => setSimAnnualReturnRate(parseFloat(e.target.value) / 100 || 0)}
               min="0"
@@ -587,7 +588,7 @@ const App = () => {
             <input
               type="number"
               id="simDurationYears"
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
+              className="w-full p-3 border border-indigo-300 rounded-lg focus:outline-none focus:ring-3 focus:ring-indigo-400 transition-all duration-200 shadow-sm"
               value={simDurationYears}
               onChange={(e) => setSimDurationYears(parseInt(e.target.value) || 0)}
               min="1"
@@ -596,29 +597,28 @@ const App = () => {
           <button
             onClick={runInvestmentSimulator}
             disabled={isSimLoading || simInitialInvestment < 0 || simMonthlyContribution < 0 || simAnnualReturnRate < 0 || simDurationYears <= 0}
-            className="w-full px-6 py-3 bg-indigo-600 text-white rounded-full shadow-lg hover:bg-indigo-700 transition-all duration-300 transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full px-8 py-3 bg-gradient-to-r from-indigo-600 to-indigo-700 text-white rounded-full shadow-lg hover:from-indigo-700 hover:to-indigo-800 transition-all duration-300 transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-75 disabled:opacity-50 disabled:cursor-not-allowed text-lg font-semibold"
           >
             {isSimLoading ? 'Simulando...' : 'Simular Investimento 🚀'}
           </button>
 
           {simResult && (
-            <div className="mt-6 p-6 bg-gray-50 border border-gray-200 rounded-lg text-left shadow-inner">
-              <h2 className="text-xl font-semibold text-gray-700 mb-3">Resultado da Simulação:</h2>
-              <p className="text-gray-800 whitespace-pre-wrap">{simResult}</p>
+            <div className="mt-6 p-6 bg-indigo-50 border border-indigo-200 rounded-lg text-left shadow-inner animate-fade-in-up">
+              <h2 className="text-xl font-semibold text-indigo-800 mb-3">Resultado da Simulação:</h2>
+              <p className="text-gray-800 whitespace-pre-wrap leading-relaxed">{simResult}</p>
             </div>
           )}
         </div>
 
         {/* Nova Seção: Glossário de Termos Financeiros */}
-        <div className="mb-8 p-6 border border-gray-200 rounded-lg shadow-sm text-left">
-          <h2 className="text-2xl font-semibold text-gray-700 mb-4">Glossário de Termos Financeiros 📚</h2>
+        <div className="mb-8 p-6 bg-white rounded-lg shadow-md border border-gray-200 animate-fade-in">
+          <h2 className="text-2xl font-semibold text-gray-700 mb-4">Glossário de Termos Financeiros 📖</h2>
           <p className="text-md text-gray-600 mb-4">
             Entenda os termos essenciais do mundo dos investimentos de forma simples.
           </p>
           <div className="space-y-4">
             {glossaryTerms.map((item, index) => (
-              <div key={index} className="bg-gray-50 p-4 rounded-lg shadow-sm">
-                {/* Removido font-bold daqui */}
+              <div key={index} className="bg-gray-50 p-4 rounded-lg shadow-sm border border-gray-100">
                 <h3 className="text-lg text-gray-800 mb-1">{item.term}</h3>
                 <p className="text-gray-700">{item.definition}</p>
               </div>
@@ -627,8 +627,8 @@ const App = () => {
         </div>
 
         {/* Nova Seção: Dicas de Segurança e Alertas de Risco */}
-        <div className="p-6 border border-red-300 bg-red-50 rounded-lg shadow-sm text-left">
-          <h2 className="text-2xl font-semibold text-red-700 mb-4">Dicas de Segurança e Alertas de Risco ⚠️</h2>
+        <div className="p-6 bg-red-50 rounded-lg shadow-md border border-red-200 animate-slide-in-right">
+          <h2 className="text-2xl font-semibold text-red-700 mb-4">Dicas de Segurança e Alertas de Risco 🚨</h2>
           <ul className="list-disc list-inside text-gray-700 space-y-2">
             <li>
               **Estude e Pesquise:** Nunca invista em algo que você não entende. Dedique tempo para aprender sobre os ativos.
@@ -656,7 +656,7 @@ const App = () => {
 
         {/* Área para exibir mensagens de erro globais */}
         {error && (
-          <div className="mt-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+          <div className="mt-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg shadow-md">
             <p className="font-bold">Erro:</p>
             <p>{error}</p>
           </div>
